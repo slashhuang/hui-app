@@ -1,0 +1,29 @@
+.filter, .tabs {
+  background-color: @gray-e2;
+  display: flex;
+  display: -webkit-flexbox;
+  display: -webkit-box;
+  li {
+    flex: 1;
+    -webkit-flex: 1;
+    -webkit-box-flex: 1;
+    a {
+      display: block;
+      padding: 0.8em 0;
+      color: @gray-87;
+      text-align: center;
+    }
+  }
+  li.active {
+    a {
+      color: @white;
+      background-color: #4AA3D1;
+    }
+  }
+}
+.tabs {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: @gray-bb;
+}

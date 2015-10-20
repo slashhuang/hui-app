@@ -1,0 +1,25 @@
+.swipe-region {
+  position: relative;
+
+  .content, .action {
+    position: absolute;
+    height: 100%;
+    top: 0;
+  }
+
+  .content {
+    width: 100%;
+    left: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 1em;
+    z-index: 1;
+    background-color: @white;
+    overflow: hidden;
+  }
+
+  .action {
+    z-index: 0;
+    right: 0;
+  }
+}

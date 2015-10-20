@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}"/>
+</head>
+<body class="neo-custom">
+<div id="container" class="neo">
+    <div>
+        <div class="sc-control-row">
+            <div class="control required">
+                <div class="title">开始日期</div>
+                <div class="input" id="beginDate" rv-class-readonly="readOnly" placeholder="设置日期"></div>
+                <div class="arrow"></div>
+            </div>
+            <div class="control required">
+                <div class="title">结束日期</div>
+                <div class="input" id="endDate" rv-datepicker="coupon.endDate" rv-class-readonly="readOnly" placeholder="设置日期"></div>
+                <div class="arrow"></div>
+            </div>
+            <div class="control required">
+                <div class="title">是否自动延期30天</div>
+                <label class="ip-switch"><input class="mui-switch" type="checkbox" id="autoDelay"
+                                                value=1 rv-prop-disabled="readOnly"
+                                                rv-checked="coupon.autoDelay"></label>
+            </div>
+        </div>
+        <div class="sc-sub-class">不可用日期</div>
+        <div class="sc-control-row">
+            <div class="control">
+                <div class="title">法定节假日</div>
+                <label class="ip-switch"><input class="mui-switch js-select-holidays" type="checkbox" name="effectiveInHolidays"
+                                                value=0 rv-prop-disabled="readOnly" rv-checked="coupon.autoDelay"
+                                                ></label>
+            </div>
+            <div class="control">
+                <div class="title">自定义日期</div>
+                <label class="ip-switch"><input class="mui-switch js-select-periods" type="checkbox" name="exceptTimePeriods"
+                                                value=0 rv-prop-disabled="readOnly"
+                                                ></label>
+            </div>
+        </div>
+        <!--<form class="js-select-type">-->
+        <!--<ol>-->
+        <!--<li>-->
+        <!--<label>-->
+        <!--法定节假日-->
+        <!--<input type="checkbox" name="effectiveInHolidays" class="js-select-holidays">-->
+        <!-- -->
+        <!--</label>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<label>-->
+        <!--自定义-->
+        <!--<input type="checkbox" name="exceptTimePeriods" class="js-select-periods">-->
+        <!--<i></i>-->
+        <!--</label>-->
+        <!--</li>-->
+        <!--</ol>-->
+        <!--</form>-->
+        <div class="sc-control-row" id="exceptDateList">
+            <div class="js-date-container">
+                <div id="js-date-list">
+
+                </div>
+            </div>
+            <div class="control">
+                <div id="js-add-date" class="title t0">添加自定义日期</div>
+            </div>
+        </div>
+        <script type="text/template" class="js-date-item">
+            <div class="control">
+                <div class="title">自定义日期<span class="item-number"></span>&nbsp;&nbsp;</div>
+                <label class="value"></label>
+
+                <div class="periodDelete action js-delete-date">删除</div>
+            </div>
+        </script>
+    </div>
+</div>
+<!--<li>-->
+<!--日期-->
+<!--<div class="action js-delete-date">删除</div>-->
+<!--<div class="value"></div>-->
+<!--</li>-->
+{{{facade 'unit-m-hui/entries/valid-period'}}}
+</body>
+</html>

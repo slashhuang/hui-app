@@ -1,0 +1,131 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clearfix {
+  *zoom: 1;
+}
+.hide, .Hide {
+  display:none;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  line-height: 0;
+  content:"";
+}
+.clearfix:after {
+  clear: both;
+}
+.hold-height {
+  height: 60px;
+}
+
+/** 子标题 **/
+.sub-title {
+  font-size: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  color: @black;
+  margin-bottom: 0.5em;
+}
+
+/** mask **/
+.mask {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#767676;
+  opacity:0.6;
+  z-index:10;
+}
+
+/** ajax err tip **/
+.ajax-err-tip-container {
+  position: absolute;
+  z-index: 9999;
+  background-color: @white;
+  width: 80%;
+  max-height: 90%;
+  border-radius: 3px;
+
+  .close {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border-top: 1px solid @gray-e1;
+    text-align: center;
+    letter-spacing: 0.5em;
+  }
+
+  .ajax-err-tip {
+    padding: 0.8em;
+
+    .err {
+      .err-detail-header {
+        font-size: 0.75em;
+        color: @gray-bb;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+
+        &:after {
+          content: ' ';
+          display: block;
+          float: right;
+          border-top: 8px solid @gray-bb;
+          border-left: 8px solid transparent;
+          border-bottom: 8px solid transparent;
+          border-right: 8px solid transparent;
+          -webkit-transform-origin: 8px 4px;
+          transform-origin: 8px 4px;
+
+          -webkit-transition: -webkit-transform 0.5s;
+          transition: transform 0.5s;
+        }
+      }
+
+      .err-detail {
+        display: none;
+        color: @gray-bb;
+        font-size: 0.75em;
+        word-break: break-word;
+      }
+
+      &.open {
+        .err-detail-header:after {
+          -webkit-transform-origin: 8px 4px;
+          transform-origin: 8px 4px;
+          -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+        }
+
+        .err-detail {
+          display: block;
+        }
+      }
+    }
+
+    .err-msg {
+        word-break: break-word;
+    }
+
+  }
+}
+
+.highlight(@tap:@gray-f2, @over:over) {
+  &:active {
+    background-color: @tap;
+  }
+
+  &:visited {
+    background-color: none; 
+  }
+}
+
+/** tap 高亮 **/
+.highlight, .highlight-list > * {
+  .highlight;
+}

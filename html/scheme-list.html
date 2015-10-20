@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}" />
+</head>
+<body>
+<form class="search-box">
+    <div class="search">
+      <input type="search" placeholder="输入方案ID/客户名/门店名" data-id="search-input" value="" />
+    </div>
+    <div class="actions"><span data-id="search-btn">搜索</span></div>
+</form>
+<ol class="list edit-list J_scheme_list"></ol>
+<div data-id="empty-list-container"></div>
+    <div class="hold-height"></div>
+</div>
+<!--baseMsg: "方案test1"-->
+<!--customerID: 182095-->
+<!--customerName: "预定数据"-->
+<!--id: 7-->
+<!--status: 30-->
+<script class="template hide" type="text/template">
+    <li class="J_scheme" data-id="<%= id %>" data-status="<%= status %>">
+        <span>
+            方案ID:<%= id %><br/>
+            <%= baseMsg %><br/>
+            <%= customerName %>
+        </span>
+    </li>
+</script>
+<script data-id="empty-tpl" type="text/template">
+  <div class="empty-list"><%= tip %></div>
+</script>
+{{{facade 'unit-m-hui/entries/scheme-list'}}}
+</body>
+</html>

@@ -1,0 +1,612 @@
+@import '../common/base/_include.less';
+@import "../common/base/global.less";
+
+@import '../common/component/btn.less';
+@import '../common/component/checkbox.less';
+@import '../common/component/checkbox-list.less';
+@import '../common/component/radio.less';
+@import '../common/component/radio-list.less';
+@import '../common/component/check-group.less';
+@import '../common/component/default-list.less';
+@import '../common/component/edit-list.less';
+@import '../common/component/mask.less';
+@import '../common/component/panel-list.less';
+@import '../common/component/pop-list.less';
+@import '../common/component/search-box.less';
+@import '../common/component/tab.less';
+@import '../common/component/toast.less';
+@import '../common/component/filter.less';
+@import '../common/component/icon.less';
+
+@import "../lib/preset";
+@import "../lib/neo";
+@import "../lib/checked";
+@import "../lib/switch";
+@import "../../node_modules/hui-neo/less/neo";
+
+.edit-list li .controls input[role='control-input'] {
+    text-align: right;
+    padding: 0 0.8em;
+}
+.text-center {
+    text-align: center;
+}
+.tips{
+    padding: .5em;
+    font-size: 80%;
+    margin-bottom: .5em;
+    background: #fff;
+}
+.first-section-margin,
+.group-container:first-child {
+    margin-top: 1em;
+}
+
+.check-group .check-button label{
+    border: 1px solid #2f93d2;
+    color: #2f93d2;
+}
+.cp-switch-coupon{
+    .fr{
+        text-align: center;
+        margin-right: .75em;
+        margin-bottom: -1em;
+        .check-button{
+            margin-left: -1px;
+            label{
+                width: 40px;
+            }
+        }
+    }
+}
+.cp-switch-amount{
+    .fr{
+        text-align: center;
+        margin-right: .75em;
+        .check-button{
+            margin-left: -1px;
+            label{
+                width: 70px;
+            }
+        }
+    }
+}
+.cp-amount-ipt{
+    input{
+        background: none;
+    }
+}
+.cp-coupon{
+    margin-top: -17px;
+}
+.dropdown-list {
+    .dropdown {
+        margin-right: 40px;
+    }
+}
+
+.cp-shop-list .cp-check{
+    position: relative;
+}
+
+.cp-t-interval {
+    border-top: 1px solid #fff;
+    margin-top: -1px;
+    b{
+        color: #2f93d2;
+    }
+}
+.cp-repeat{
+    span{
+        display: inline-block;
+        width: 100%;
+        .fr{
+            text-align: right;
+            margin-right: .75em;
+            margin-bottom: -1.5em;
+            .check-button{
+                margin-top: .15em;
+                margin-bottom: .15em;
+                label{
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+.checkbox-list .cp-shop-list .cp-check {
+    padding-right: 2.3em;
+}
+.disabled .check-button {
+    margin-left: 0;
+}
+.edit-list li.long-value>span b {
+    display: inline-block;
+    margin-left: 80px;
+    top: 30%;
+    white-space: pre;
+}
+.image-list {
+    background-color: @white;
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 1em;
+    .item {
+        position: relative;;
+
+        vertical-align: top;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 10px;
+
+        width: 90px;
+        height: 90px;
+        box-sizing: border-box;
+
+        border: 2px solid @gray-dc;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .item .icon-check {
+        display: none;
+
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        background: url(../img/checked.jpg);
+        width: 23px;
+        height: 23px;
+        background-size: 100%;
+    }
+    .item.checked {
+        border: 2px solid @orange-dp;
+
+        .icon-check {
+            display: block;
+        }
+    }
+    .add {
+        text-align: center;
+        color: @blue-txt;
+
+        i {
+            font-style: normal;
+            font-size: 3em;
+        }
+
+        span {
+            display: block;
+        }
+    }
+    .hide {
+        display: none !important;
+    }
+}
+.image-info {
+    padding: .5em;
+    margin-bottom: 1em;
+    color: #31708f;
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+}
+.reject-reason {
+    padding: .5em;
+    margin-bottom: 1em;
+    color: #B94C15;
+    background-color: #F7F1D9;
+    border: 1px solid #F1C98D;
+}
+.edit-list li.control-half {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 50%;
+    float: left;
+    .controls label {
+        min-width: 3em;
+    }
+    .controls input {
+        .placeholder-color(#ccc);
+    }
+}
+.control-half-end {
+    border-left: 1px solid #e1e1e1;
+}
+.control-half-end+li {
+    clear: both;
+}
+.controls.textarea {
+    .empty {
+        display: none;
+        width: 1.5em;
+        margin-right: -0.5em;
+        text-align: center;
+        font-size: 1.5em;
+        color: #999;
+        &:before {
+            content: '×';
+        }
+    }
+    textarea:focus + .empty {
+        display: block;
+    }
+}
+.btn {
+    background-color: #f63;
+    border-radius: 6px;
+    .border-box();
+    &:active {
+        background-color: #cc5229;
+    }
+    &.secondary {
+        color: #f63;
+        background: #fff;
+        border: 1px solid #ff6633;
+        &:active {
+            background-color: #eeeeee;
+        }
+    }
+}
+.scheme-actions {
+    margin: 0 10px;
+    .horizontal-flex();
+    .btn {
+        width: 1px;
+        margin: 0 5px;
+        .flex(2, 0);
+    }
+    .btn.secondary {
+        .flex(1, 0);
+    }
+}
+
+.append-text{
+    margin-top: 0.2em;
+    color: #bbb;
+    font-size: 0.85em;
+}
+
+/*
+author: guodong.jiang
+des: 定额优惠 -> 定额优惠详情页
+*/
+
+/*
+定义设计通用字体颜色
+*/
+.t0(){
+    color:#ff6633;
+}
+
+.t1(){
+    color:#333333;
+}
+
+.t2(){
+    color:#666666;
+}
+
+.t3(){
+    color:#999999;
+}
+
+.t4(){
+    color:#cccccc;
+}
+
+.t5(){
+    color:#3388bb;
+}
+
+.prefix-display-flex(){
+    display:flex;
+    display: -webkit-flex;
+}
+
+.prefix-align-item(@align:center){
+    -webkit-align-items: @align;
+    align-items: @align;
+}
+
+.prefix-justify(@justify:flex-start){
+    -webkit-justify-content: @justify;
+    justify-content:         @justify;
+}
+
+.prefix-flex-grow(@grow:1){
+    -webkit-flex-grow: @grow;
+    flex-grow:@grow;
+}
+
+.prefix-flex-basis(@basis){
+    -webkit-flex-basis: @basis;
+    flex-basis:@basis;
+}
+
+.prefix-flex(@flex:auto){
+    -webkit-flex: @flex;
+    flex:@flex;
+}
+//全都改成嵌套结构 hxg
+.sc-control-row {
+    text-align: center;
+    background: #fff;
+    margin-top:0.6em;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    font-size:0.9em;
+    .releaseFlex {
+        display: flex;
+        line-height: 300%;
+        h1{
+          display:inline-block;
+          width:33%;
+        }
+        form{
+          display:inline-block;
+          width: 67%;
+          top: 0;
+          min-height: 3em;
+          line-height: 300%;
+          text-align: right;
+          input{//隐藏原生input框
+              &[type='tel']{
+                  border: 1px solid @gray-dc;
+                  box-shadow: none;
+                  border-radius: 5px;
+                  font-size:14px;
+                  position:inherit;
+                  padding:5px;
+                  display: inline-block;
+                  width:30px;
+                  margin: 0 2px;
+              }
+            position:absolute;
+            top:-30px;
+            &:checked +
+              b {
+                background: url("../img/icon/radio-select.png") no-repeat right 0;
+                background-size: 60px 20px;
+              }
+            & +
+              b{
+                display:inline-block;
+                vertical-align: middle;
+                margin-right:2px;
+                width:20px;
+                height:20px;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                border-radius: 20px;
+                background:url("../img/icon/radio-select.png") no-repeat left 0;
+                background-size:60px 20px;
+              }
+          }
+        }
+    }
+    .control {
+        min-height: 3em;
+        padding: 0 1em 0 0;
+        border-bottom: 1px solid #e1e1e1;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -moz-box-orient: horizontal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-left: 1em;
+        &:last-child{
+            border-bottom: 0;
+        }
+        .title + .input {
+            text-align: right;
+        }
+        .input {
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -webkit-flex: 1 1 auto;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            line-height: 1.3;
+            font-size: 1em;
+            .t1();
+            border: 0 none;
+            &:empty::after {
+                .t3();
+                content: attr(placeholder);
+            }
+        }
+        .arrow {
+            -webkit-box-flex: 0;
+            -moz-box-flex: 0;
+            -webkit-flex: 0 0 auto;
+            -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+            width: 10px;
+            height: 10px;
+            border-width: 3px 3px 0 0;
+            border-color: #ccc;
+            border-style: solid;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        .unactived {
+            color:#bbb;
+        }
+    }
+    .control-line {
+        min-height: 3em;
+        .t3();
+        font-size: 1.1em;
+        text-align: center;
+        line-height: 300%;
+        padding:0 1em;
+    }
+    .aCenter{
+        text-align:center;
+    }
+    .t2{
+        .t2();
+    }
+    .textarea{
+        height: 3em;
+        width:100%;
+        border:0;
+        margin:1em 0;
+        font-size:1em;
+    }
+    .required{
+        .title{
+            position: relative;
+            left: -0.6em;
+            text-align: left;
+           line-height:300%;
+            &:before{
+                content: '* ';
+                color: #ff2323;
+            }
+        }
+        .title-last-child{
+            left: 0em;
+        }
+    }
+    .textarea{
+        height: 4em;
+        width:100%;
+        border:0;
+        margin:.2em 0;
+        font-size:1em;
+    }
+}
+
+.sc-price-list{
+    width:50%;
+  //display:flex;
+  //display: -webkit-flex;
+    .prefix-align-item(center);
+  &:after{
+    content:'';
+    height:0;
+    clear:both;
+  }
+}
+
+.sc-price-input{
+    border:1px solid #bbb;
+    border-radius:10px;
+    margin:0.5em 0;
+    padding:0.3em 0.3em;
+    color:#bbb;
+    input[type=tel]{
+        width:43px;
+        border:0;
+        font-size:1em;
+    }
+}
+
+
+.sc-price-input-last-child{
+    margin-left:0.6em;
+}
+
+.sc-control-radios {
+    .prefix-display-flex();
+    .prefix-flex-grow(2);
+    li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        .prefix-display-flex();
+        .prefix-align-item();
+        margin-right: 0.5em;
+    }
+    .radio {
+        border: 1px solid #bbb;
+        width: 18px;
+        height: 18px;
+        border-radius: 20px;
+        background-color: #fff;
+        margin-right: 0.3em;
+        position: relative;
+        &.muti-checked {
+            background-color: #fcf1f7;
+            border-color: #f3653d;
+        }
+    }
+    input[type=tel]{
+        border:1px solid #bbb;
+        border-radius:10px;
+        padding:0.5em 0.3em;
+        .t1();
+    }
+    .sc-price-input{
+        border:0px;
+        padding:0;
+        margin-left:3px;
+    }
+}
+
+
+.relative{
+    position: relative;
+}
+
+.text-count-content{
+    position: absolute;
+    right:1em;
+    bottom:1em;
+    .t4();
+}
+
+/*
+scheme-description page style
+*/
+.ip-switch{
+    .prefix-flex(auto);
+    text-align:right;
+}
+
+.newtips{
+    .t3();
+    padding: 1em;
+    font-size: 0.6em;
+}
+
+/*
+valid-period page style
+*/
+
+.sc-sub-class{
+    min-height: 2em;
+    position: relative;
+    top: 1.1em;
+    font-size: 0.9em;
+    margin-left: 1em;
+    .t2();
+}
+
+.t0{
+    .t0();
+}
+
+.periodDelete{
+    .prefix-flex(auto);
+    text-align:right;
+}
+
+#js-date-list .control:last-child {
+    border-bottom: 1px solid #e1e1e1;
+}

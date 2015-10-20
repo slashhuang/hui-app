@@ -1,0 +1,88 @@
+.edit-list {
+  li {
+    &.required {
+      > span:after, > label:after, .controls label:after {
+        position: relative;
+        top: 0.25em;
+        content:' *';
+        color: @orange-dp;
+      }
+    }
+    &.required.blank, &.error {
+      > span b, > a b {
+        color: @orange-dp;
+      }
+    }
+    &.blank {
+      > span b, > a b {
+        color: @gray-cc;
+      }
+    }
+    &.digital {
+      > span b, > a b {
+        color: @blue-txt;
+      }
+    }
+    > span, > a {
+      color: @gray-bb;
+      b {
+        position: absolute;
+        top: 50%;
+        right: 2em;
+        margin-top: -0.5em;
+        font-weight: normal;
+        color: @black;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: right;
+      }
+    }
+    .controls {
+      display: flex;
+      display: -webkit-flexbox;
+      display: -webkit-box;
+      height: 3em;
+      line-height: 3em;
+      margin-right: 1.3em;
+      label {
+        display: block;
+        min-width: 5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: @gray-bb;
+      }
+      input, textarea {
+        display: block;
+        background-color: @white;
+        flex: 1;
+        -webkit-flex: 1;
+        -webkit-box-flex: 1;
+        border: none;
+        height: 100%;
+        font-size: 1em;
+        padding: 0 0.5em;
+      }
+
+      .icon-tips {
+        position: relative;
+        display: block;
+        right: 0px;
+        top: 50%;
+        width: 30px;
+        height: 30px;
+        margin-top: -15px;
+        margin-right: -1em;
+
+        background-image: url('../img/icon-tips@2x.png');
+        background-size: 100% 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  li.tapped {
+      .list-tapped;
+  }
+}

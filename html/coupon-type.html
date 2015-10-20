@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-hans">
+    <meta charset="UTF-8">
+    <title>选择优惠类型</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/neo-only.css'}}}" />
+</head>
+<body>
+<div id="container" class="neo">
+    <section class="section">
+        <div class="control" rv-on-click="goNormal">
+            <div class="title">满减 折扣 赠品</div>
+            <div class="input" rv-show="isNormal">修改优惠</div>
+            <div class="input" rv-hide="isNormal"></div>
+            <a class="btn orange" rv-hide="isNormal">添加优惠</a>
+            <div class="arrow" rv-show="isNormal"></div>
+        </div>
+        <div class="control" rv-on-click="goVoucher">
+            <div class="title">送券</div>
+            <div class="input" rv-show="isVoucher">修改优惠</div>
+            <div class="input" rv-hide="isVoucher"></div>
+            <a class="btn orange" rv-hide="isVoucher">添加优惠</a>
+            <div class="arrow" rv-show="isVoucher"></div>
+        </div>
+       <!-- <div class="control" rv-on-click="goRation">
+            <div class="title">定额优惠</div>
+            <div class="input" rv-show="isRation">修改优惠</div>
+            <div class="input" rv-hide="isRation"></div>
+            <a class="btn orange" rv-hide="isRation">添加优惠</a>
+            <div class="arrow" rv-show="isRation"></div>
+        </div>-->
+    </section>
+    <div class="section-desc">
+        温馨提示：<br/>
+        <!--“满减折扣赠品”、“送券”与“定额优惠”只能选一种添加优惠内容-->
+        “满减折扣赠品”与“送券”只能选一种添加优惠内容
+    </div>
+</div>
+{{{facade 'unit-m-hui/entries/coupon-type'}}}
+</body>
+</html>

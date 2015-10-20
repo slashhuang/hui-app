@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" /><title> </title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}" />
+    </head>
+    <body>
+        <ul id="list" class="list checkbox-list">
+        </ul>
+
+        <script type="text/template" id="item">
+            <li class="no-icon-next" data-shop-id="<%= shopID %>" data-shop-name="<%= shopName %>">
+                <span>
+                    <%= shopName %>
+                    <div class="checkbox" <%if(!isChoose){%>style="display:none;"<%}%>>
+                        <input type="checkbox" <%if(selected){%>checked<%}%>>
+                        <label><i></i></label>
+                    </div>
+                </span>              
+            </li> 
+        </script>
+        {{{facade 'unit-m-hui/entries/select-shops'}}}
+    </body>
+</html>

@@ -1,0 +1,68 @@
+/**
+ * <div class="checkbox"><input type="checkbox" name="role" value="关键联络人" /><label><i></i></label></div>
+ */
+.checkbox {
+  display: inline-block;
+  
+  input {
+    display: none;
+  }
+
+  label, i {
+    display: block;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  }
+
+  label {
+    width: 1em;
+    height: 1em;
+    border-radius: 2px;
+    border: 1px solid @gray-dd;
+  }
+
+  i {
+    display: none;
+    width: 0.6em;
+    height: 0.4em;
+    margin: 0.2em auto;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+  input:checked + label {
+    border: 1px solid @blue-txt;
+
+    i {
+      display: block;
+      border-left: 2px solid @blue-txt;
+      border-bottom: 2px solid @blue-txt;
+    }
+  }
+
+  input:indeterminate + label {
+    i {
+      display: block;
+      width: 0.8em;
+      height: 0.8em;
+      background-color: @blue-txt;
+      transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      margin: 0.1em;
+    }
+  }
+
+  input:checked:disabled + label {
+    border: 1px solid @gray-dd;
+
+    i {
+      border-color: @gray-dd;
+    }
+  }
+
+  input:indeterminate:disabled + label {
+    i {
+      background-color: @gray-dd;
+    }
+  }  
+}
