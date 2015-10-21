@@ -91,6 +91,7 @@ var self = module.exports = {
         var _self = this;
         self.models =[];
         efte.action.get(function(query) {
+            //alert(JSON.stringify(query));
             self.topic = query.topic;
             efte.setTitle(query.title || '时间区间');
             self.timePeriods = self.genShowData(query.data);
@@ -284,22 +285,84 @@ var self = module.exports = {
         var timePeriods = [];
         for (var j = 0; j < self.models.length; j++) {
             var thisData = self.models[j].value();
+
+            /**
+             * 按照产品经理要求，在此页面执行点击返回就要执行校验
+             * 午市 10-18；晚：15-24
+             */
+            //获取描述的字段
+            var timePeriod = $("#controlRadios label.muti-checked").next().text();
+            //校验数据格式
+            var CheckNoon =function(timePeriod){
+               //数据正则分解捕获
+               var regExp =/^(\d+)*:?(\d+)*/ ;
+                /**
+                 * 转换数据为整数
+                 * @param time
+                 */
+               var changeTimeFormat = function(time){
+                    var data = regExp.exec(time);
+                    data.splice(0,1);
+                   return data.reduce(function(pre,val){
+                       return pre+val;
+                   },'')
+
+                };
+                var earlyTime = changeTimeFormat(thisData.timeRange[0]);
+                var laterTime = changeTimeFormat(thisData.timeRange[1]);
+               switch(timePeriod) {
+                   case '午市':
+                       if (earlyTime >= 1000 && earlyTime<laterTime && laterTime <= 1800) {
+                           return true;
+                       }
+                       else {
+                           alert('午市时间请控制在10:00-18:00之间');
+                           return false;
+                       }
+                       break;
+                   case '晚市':
+                       if (earlyTime >= 1500  && earlyTime<laterTime && laterTime <= 2400) {
+                           return true;
+                       }
+                       else {
+                           alert('晚市时间请控制在15:00-24:00之间');
+                           return false;
+                       }
+                       break;
+                   default :
+                       return true;
+                       break;
+               }
+            };
+            //存储数据
             timePeriods.push({
                 beginDay: thisData.dayRange[0] || 2,
                 endDay: thisData.dayRange[1] || 3,
                 beginTime: thisData.timeRange[0] || "11:30",
                 endTime: thisData.timeRange[1] || "14:00",
-                timePeriod: $("#controlRadios label.muti-checked").next().text()
+                timePeriod: timePeriod
             });
         }
-        return timePeriods;
+        return {
+            timePeriods : timePeriods,
+            bool : CheckNoon(timePeriod)
+        };
     },
     setButtons: function() {
         var _self = this;
         backAction(function(back) {
-            if (!validator(self.models[0])) return;
-            efte.publish(self.topic, self.genAjaxData());
-            back();
+            /**
+             * 把genAjaxData()返回值转为对象，存储数据和bool值用于校验
+             * @type {*|{timePeriods, bool}}
+             */
+            var data = self.genAjaxData();
+            if(data.bool){
+                efte.publish(self.topic, data.timePeriods);
+                back();
+            }
+            else{
+                return false;
+            }
         });
     }
 };

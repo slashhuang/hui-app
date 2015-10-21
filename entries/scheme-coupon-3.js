@@ -5,7 +5,7 @@ var _ = require('underscore');
 var rivets = require('rivets');
 /**
  * 点评内部app弹窗组件
- * @param 'hui-neo'
+ * @param 'hui-neo'源码扩展封装了rivets的binders方法
  */
 var neo = require('hui-neo');
 var $ = require('zepto-fix-issue');
@@ -24,7 +24,7 @@ var defaultSceneryCoupon = function () {
     return {
         "type": 6,
         "title": "",
-        "unit":"份",
+        "unit":"张",
         "beginDate": _now,
         "endDate": _now,
         "timePeriods": null,
@@ -44,7 +44,7 @@ var defaultSceneryCoupon = function () {
             }
         ],
         "autoDelay": 1,
-        "quotaType": 1,
+        "quotaType": 2,
         "retailPrice": "",
         "salePrice": "",
         "template": {
@@ -133,7 +133,7 @@ var self = module.exports = {
             self.requestData(query);
             self.branchList = query.branchList;//门店信息
             //if(query.readOnly){@TODO 之后要改过来
-            if(false){//测试环境设置为true
+            if(false){//测试环境设置为false
                 //如果是只读的，直接设置所有input和textarea标签只读
                 $('input').prop('disabled','true');
                 $('textarea').prop('disabled','true');
@@ -142,11 +142,12 @@ var self = module.exports = {
         efte.setTitle('定额优惠详情');
     },
     requestData: function(query) {
+        //console.log('第一次页面进来的数据',JSON.stringify(query));
         self.topic = query.topic;
         self.customerID = query.customerID;
         self.readOnly = query.readOnly;
         self.rvModel.readOnly = query.readOnly;
-        self.readOnly = false; //（测试非只读的情况）
+        self.readOnly = false; //（测试非只读的情况）@TODO之后要改过来
         //self.readOnly = query.readOnly;
 
 
@@ -164,6 +165,7 @@ var self = module.exports = {
              * 删选和存储闪惠数据，存入module.model.couponOffers
              */
             self.filterShanHuiData(_dataMsg);
+            console.log(JSON.stringify(self.model.couponOffers[0]));
             /**
              * 选取存储的数据,渲染模板
              */
@@ -174,9 +176,9 @@ var self = module.exports = {
                 self.renderTemplate(couponOffer, index, false);
             });
         }
-        //绑定模版组件的事件
+        //绑定模版组件的冒泡事件
         self.bindTemplateUnitsEvent();
-        //接收模版弹窗页发送过来的消息
+        //接收模版弹窗页发送过来的消息 @TODO  HTML里面并没有体现这一点
         efte.subscribe("unit-m-hui-template-window", function (query) {
             $($(".js-coupon-window").get(query.index)).find(".input").html(query.coupon_des);
             self.model.couponOffers[query.index].businessAttribute[query.busAttr] = query.coupon_des;
@@ -229,7 +231,7 @@ var self = module.exports = {
     },
     renderTemplate: function(couponOffer, index,isFirst){
         var  _templateDom;//存储模板根据不同的viewType渲染出来的dom模板
-        var  _templateData=couponOffer.template.attributes;//获取属性数组
+        var  _templateData = couponOffer.template.attributes;//获取属性数组(渲染页面)
         var  _first = isFirst;//新增时候设置默认勾选属性
         //var _readOnly = false;//测试使用  @TODO 之后不要忘了改
         var  _readOnly = self.readOnly;//设置可读性
@@ -266,7 +268,7 @@ var self = module.exports = {
 
     },
     /**
-     *
+     * 对应的是attributes数组里面的一项，进行viewTtype匹配渲染
      * @param templateItem 对应页面列表的每一行(json对象中的attributes里面的属性值)
      * @param _readOnly 设置模板内容是否只读
      * @param _first 指定是否增加模板
@@ -314,10 +316,10 @@ var self = module.exports = {
             for(var i = 0, l = _viewOptions.length; i < l; i++){
                 var _activedClass = "";
                 var _default = _viewOptions[i].default;
-                //删选和businessAttr保持一致的attr，进行勾选
+                //删选和businessAttr保持一致的attr，执行操作
                 self.getBusinessAttr(templateItem, templateIndex, function(businessAttribute, busAttr){
                     /**
-                     * 仅仅是取出businessAttr中的数字部分
+                     * 仅仅是取出businessAttr中的数字部分(实际上都是空，先不改动)
                      */
                     _defaultShowText = businessAttribute[busAttr].match(/(\d+)(\.\d+)?/g) || "";
                     //valueType == 1时判断下发值和模版值相等判定选中
@@ -404,10 +406,18 @@ var self = module.exports = {
             self.getBusinessAttr(templateItem, templateIndex, function(businessAttribute, busAttr){
                 _defaultShowText = businessAttribute[busAttr];
             }.bind(this));
-            _templateDom += '<textarea maxlength="40" class="textarea js-detail-description"'+_disabled+'placeholder="' + templateItem.tip + '">' + _defaultShowText;
+            /**
+             * 后端要求增加 "restriction":{"lengthLE":[10]}字段，进行提交校验，这个先写下
+             * 有数据就加，没数据就以40为默认值
+             * @type {boolean}
+             */
+            var lengthBool = templateItem['restriction'] && templateItem['restriction']['lengthLE'];
+            var textMaxLength = lengthBool?  templateItem.restriction['lengthLE'][0] : 40;
+
+            _templateDom += '<textarea maxlength='+ textMaxLength +'  class="textarea js-detail-description"'+_disabled+'placeholder="' + templateItem.tip + '">' + _defaultShowText;
             _templateDom += '</textarea>';
 
-            _templateDom += '<div class="text-count-content"><span class="js-textarea-count">' + _defaultShowText.length + '</span>/40</div>';
+            _templateDom += '<div class="text-count-content"><span class="js-textarea-count">' + _defaultShowText.length + '</span>/'+textMaxLength +'</div>';
             _templateDom += '</div>';
             _templateDom += '</div>';
             _fragment.innerHTML = _templateDom;
@@ -468,7 +478,7 @@ var self = module.exports = {
                 var eleIndex= $(formEle).index(this);
                 /**
                  * 由于dom样式采用label标签操作，因此需要在document冒泡的基础上在添加change事件
-                 * 由于是检测的change事件，所以不需要校验是否重新获取模板
+                 * 检测的change事件
                  */
                 $(Form).change(function(e){
                     //点击选择
@@ -481,13 +491,14 @@ var self = module.exports = {
                         typeName:selectTypeName,
                         index:eleIndex
                     };
+                    //alert(JSON.stringify(domInfo));
                     switch(selectTypeName){
                         case 'buffet':
                             self.addCouponModel(domInfo);
                             break;
                         case 'scenery':
-                            alert('景点门票功能暂时没有开放');
-                            //self.addCouponModel(domInfo);
+                            //alert('景点门票功能暂时没有开放');
+                            self.addCouponModel(domInfo);
                             break;
                     }
                 });
@@ -549,20 +560,20 @@ var self = module.exports = {
      * 参数的作用是执行切换模板or增加模板
      */
     addCouponModel: function(domInfo){
-        var initialData={
+        var initialData ={
             keyMap: "{redeemType:'6',quotaType:'1'}",
             dimensionType: 1};
-        var param=initialData;//默认情况下执行增加模板
+        var param = initialData;//默认情况下执行增加模板
         /**
          * 选取Ajax参数,bool值决定是切换景区和自助餐的模板，还是新增模板
          */
         if(domInfo && domInfo.typeName){
             switch(domInfo.typeName){
                 case 'buffet':
-                    param=initialData;
+                    param = initialData;
                     break;
                 case 'scenery':
-                    param={keyMap:"{redeemType:'6',quotaType:'2'}", dimensionType:1};
+                    param = {keyMap:"{redeemType:'6',quotaType:'2'}", dimensionType:1};
                     break;
             }
         }
@@ -571,7 +582,7 @@ var self = module.exports = {
             data: param,
             success: function (data) {
                 if(data.code == 200){
-                    //console.log(JSON.stringify(data.msg));
+                    console.log('ajaxdata',JSON.stringify(data));
                     var _data = data.msg;
                     /**
                      * 将获得的数据按照coupon的统一形式给出(默认为获取自助餐)
@@ -590,10 +601,11 @@ var self = module.exports = {
                         /**
                          * 这里是个大坑，rivets 双向模板执行[我真是好人啊]
                          * self.model.couponOffers.splice(domInfo.index,1,_newCoupon)会报typeError，
-                         * 分为两步走，先把数组数据剥离在添加
+                         * 分为两步走，先把数组数据剥离再添加
                          */
                         self.model.couponOffers.splice(domInfo.index,1);
                         self.model.couponOffers.splice(domInfo.index,0,_newCoupon);
+                        console.log('查看切换模板渲染前的数据',JSON.stringify(_newCoupon));
                         //template-container不属于rivets管辖的数据范围，执行手动删除
                         $($(".js-template-container").get(domInfo.index)).empty();
                         self.renderTemplate(_newCoupon, domInfo.index,true);
@@ -601,6 +613,7 @@ var self = module.exports = {
                     else{//增加模板
                         self.model.couponOffers.push(_newCoupon);
                         var _lastIndex = self.model.couponOffers.length - 1;
+                        console.log('查看增加模板渲染前的数据',JSON.stringify(_newCoupon));
                         self.renderTemplate(_newCoupon, _lastIndex,true);
                         $($(".js-template-container").get(_lastIndex)).attr("data-index", _lastIndex);
                     }
@@ -644,17 +657,23 @@ var self = module.exports = {
         return _showDay + " " + _showTime;
     },
     initHandlers: function () {
+        /**
+         * addUnitHandler函数的参数说明
+         * @param {string} name
+         * @param {object} opt
+         */
         neo.binder.addUnitHandler('timeperiod', {
             unit: 'unit-m-hui',
             path: 'pages/time-period-new',
-            data: function (val) {
+            data: function (val) {//来自path的data传输过来，执行双向绑定
                 return {
                     title: '优惠时段',
                     readOnly: self.readOnly,
                     data: val || []
                 }
             },
-            value: function (val, el) {
+            value: function (val, el) {//来自rivets的数据
+                //alert('测试value字段里面的json'+JSON.stringify(val));  //@ TODO 待会删掉
                 if (!val) return val;
                 //var _index = $(".js-repeat-template").index($(el).parents(".js-repeat-template"));
                 //alert($(".js-repeat-template").length);
@@ -737,7 +756,7 @@ var self = module.exports = {
             },
             'beginDate,endDate': function (begin, end) {
                 if (moment(begin).isAfter(end, 'day')) return '开始时间必须早于结束时间';
-            },
+            }
 
         })
     }),
@@ -778,6 +797,7 @@ var self = module.exports = {
     transAjaxCouponOffers: function () {
         var self = this;
         return this.model.couponOffers.reduce(function (result, coupon, index) {
+            //删除数据
             delete coupon.unit;
             result.push(self.genAjaxData(coupon, true, index));
             return result;
@@ -786,6 +806,8 @@ var self = module.exports = {
     transPublishCouponOffers: function () {
         var self = this;
         return this.model.couponOffers.reduce(function (result, coupon, index) {
+            //删除unit数据
+            delete coupon.unit;
             result.push(self.genAjaxData(coupon, false, index));
             return result;
         }, []);

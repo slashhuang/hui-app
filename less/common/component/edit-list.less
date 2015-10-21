@@ -1,11 +1,18 @@
 .edit-list {
   li {
     &.required {
-      > span:after, > label:after, .controls label:after {
+      //对于优惠时段，注释掉这段代码，采用下面的
+      //> span:after, > label:after, .controls label:after {
+      //  position: relative;
+      //  top: 0.25em;
+      //  content:' *';
+      //  color: #ff2323;
+      //}
+      > span:before, > label:before, .controls label:before {
         position: relative;
         top: 0.25em;
         content:' *';
-        color: @orange-dp;
+        color: #ff2323;
       }
     }
     &.required.blank, &.error {
