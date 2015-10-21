@@ -142,7 +142,6 @@ var self = module.exports = {
         efte.setTitle('定额优惠详情');
     },
     requestData: function(query) {
-        //console.log('第一次页面进来的数据',JSON.stringify(query));
         self.topic = query.topic;
         self.customerID = query.customerID;
         self.readOnly = query.readOnly;
@@ -153,7 +152,6 @@ var self = module.exports = {
 
         //过滤出闪惠方案数据
         var _dataMsg = query;
-        //console.log(JSON.stringify(_dataMsg));
         /**
          * 如果页面没有数据，则add模板，有数据则删选数据进行渲染
          */
@@ -165,7 +163,7 @@ var self = module.exports = {
              * 删选和存储闪惠数据，存入module.model.couponOffers
              */
             self.filterShanHuiData(_dataMsg);
-            console.log(JSON.stringify(self.model.couponOffers[0]));
+            //console.log(JSON.stringify(self.model.couponOffers[0]));
             /**
              * 选取存储的数据,渲染模板
              */
@@ -299,7 +297,6 @@ var self = module.exports = {
                  _viewOptions = templateItem.valueOptions,
                  _required = "",
                  _defaultShowText = "";
-            //console.log(JSON.stringify(templateItem))
 
             _templateDom += '<div class="sc-control-row">';
             if(templateItem.isRequired){
@@ -582,7 +579,7 @@ var self = module.exports = {
             data: param,
             success: function (data) {
                 if(data.code == 200){
-                    console.log('ajaxdata',JSON.stringify(data));
+                    //console.log('ajaxdata',JSON.stringify(data));
                     var _data = data.msg;
                     /**
                      * 将获得的数据按照coupon的统一形式给出(默认为获取自助餐)
@@ -605,7 +602,6 @@ var self = module.exports = {
                          */
                         self.model.couponOffers.splice(domInfo.index,1);
                         self.model.couponOffers.splice(domInfo.index,0,_newCoupon);
-                        console.log('查看切换模板渲染前的数据',JSON.stringify(_newCoupon));
                         //template-container不属于rivets管辖的数据范围，执行手动删除
                         $($(".js-template-container").get(domInfo.index)).empty();
                         self.renderTemplate(_newCoupon, domInfo.index,true);
@@ -613,7 +609,6 @@ var self = module.exports = {
                     else{//增加模板
                         self.model.couponOffers.push(_newCoupon);
                         var _lastIndex = self.model.couponOffers.length - 1;
-                        console.log('查看增加模板渲染前的数据',JSON.stringify(_newCoupon));
                         self.renderTemplate(_newCoupon, _lastIndex,true);
                         $($(".js-template-container").get(_lastIndex)).attr("data-index", _lastIndex);
                     }
