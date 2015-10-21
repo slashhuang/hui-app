@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" /><title> </title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}" />
+    </head>
+    <body>
+        <div class="tips">
+            温馨提示：若不能勾选门店，则表示该门店已存在于另一个闪惠方案中，若想勾选该门店，请至该方案中删除冲突门店，再在本方案中进行勾选编辑
+        </div>
+        <ul id="list" class="list checkbox-list">
+        </ul>
+        <script type="text/template" id="item">
+            <li class="no-icon-next" data-shop-id="<%= shopID %>" data-shop-name="<%= shopName %>">
+                <span>
+                    <%= shopName %>
+                    <% if (conflictMsg) {%>
+                        <div class="append-text"><%= conflictMsg %></div>
+                    <% } %>
+                    <div class="checkbox">
+                        <input <%if(isChoose){%>class="enable"<%}%> type="checkbox" <%if(selected){%>checked<%}%>>
+                        <label><i></i></label>
+                    </div>
+                </span>              
+            </li> 
+        </script>
+        {{{facade 'unit-m-hui/entries/multiple-select-shops'}}}
+    </body>
+</html>

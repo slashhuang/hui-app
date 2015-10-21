@@ -1,0 +1,33 @@
+.image-list {
+  margin: 0 15px;
+  .image-icon {
+    margin: 0 5% 10px 0;
+    display: block;
+    float: left;
+    background: @white;
+    width:30%;
+    height:90px;
+    overflow:hidden;
+    border: 1px solid @gray-dc;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+    > img {
+      width: 100%;
+      height: 100%;
+    }
+    &.add {
+      text-align: center;
+      color: @blue-txt;
+      i {
+        font-style: normal;
+        font-size: 3em;
+      }
+      span {
+        display: block;
+      }
+    }
+  }
+}

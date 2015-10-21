@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}" />
+</head>
+<body class="neo-custom">
+<form class="js-select-type">
+<ol>
+    <li>
+        <label>
+            法定节假日
+            <input type="checkbox" name="effectiveInHolidays" class="js-select-holidays">
+            <i></i>
+        </label>
+    </li>
+    <li>
+        <label>
+            自定义
+            <input type="checkbox" name="exceptTimePeriods" class="js-select-periods">
+            <i></i>
+        </label>
+    </li>
+</ol>
+</form>
+<div class="js-date-container">
+    <ol class="js-date-list"></ol>
+    <ol>
+        <li class="center js-add-date">添加日期</li>
+    </ol>
+</div>
+<script type="text/template" class="js-date-item">
+<li>
+    日期
+    <div class="action js-delete-date">删除</div>
+    <div class="value"></div>
+</li>
+</script>
+{{{facade 'unit-m-hui/entries/date-except'}}}
+</body>
+</html>

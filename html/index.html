@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}" />
+    </head>
+    <body>
+        <div class="tips">
+            温馨提示：您可至阿波罗PC版“方案管理”-“闪惠闪付方案”查询所有闪惠闪付方案、查看审核进度、转移责任人。
+        </div>
+        <a class="btn" href="#" id="add">添加方案</a>
+
+        <ol id="list" class="list edit-list">
+        </ol>
+
+        <script type="text/template" id="item">
+            <% if (show == "待提交或被驳") {%>
+                <li class="digital list" style="margin-bottom:0;border-top: 4px solid #eee;">
+             <% } else {%>
+                <li class="digital">
+            <% } %>
+                <a class="navigate-right">
+                        <%= show %>
+                        <b><%= sum %></b>
+                </a>                
+            </li>
+        </script>
+    {{{facade 'unit-m-hui/entries/index'}}}
+    </body>
+</html>

@@ -1,0 +1,88 @@
+@import "preset";
+@blue: #2F93D2;
+.neo-custom {
+    ol {
+        margin-bottom: 1em;
+        background: #ffffff;
+        color: #666666;
+    }
+    li {
+        height: 3em;
+        line-height: 3em;
+        padding-left: 0.5em;
+        border-bottom: 1px solid #e1e1e1;
+    }
+    li.center {
+        text-align: center;
+    }
+    li>label {
+        display: block;
+        position: relative;
+        &:after {
+            content: '';
+        }
+        input {
+            display: none;
+        }
+        input[type='radio'],
+        input[type='checkbox'] {
+            + i {
+                display: block;
+                position: absolute;
+                top: 0.75em;
+                right: 0.75em;
+                .border-box();
+                width: 1.5em;
+                height: 1.5em;
+                border-radius: 1.5em;
+                border: 1px solid @blue;
+            }
+            +i:after {
+                content: '';
+                display: none;
+                position: absolute;
+                width: 0.6em;
+                height: 0.3em;
+                top: 50%;
+                left: 50%;
+                margin-top: -0.3em;
+                margin-left: -0.4em;
+                transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+                border-left: 2px solid #fff;
+                border-bottom: 2px solid #fff;
+            }
+            &:checked + i {
+                background-color: @blue;
+            }
+            &:checked + i:after {
+                display: block;
+            }
+            &:disabled + i {
+                border-color: #ccc;
+            }
+            &:disabled:checked + i {
+                background-color: transparent;
+            }
+            &:disabled + i:after {
+                border-color: #ccc;
+            }
+        }
+    }
+    li>.value {
+        display: inline-block;
+        padding: 0 .5em;
+        float: right;
+        color: #333333;
+    }
+    li>.action {
+        display: block;
+        float: right;
+        padding: 0 1em;
+        border-left: 1px solid #e1e1e1;
+        color: @blue;
+    }
+    .disabled .action {
+        display: none;
+    }
+}

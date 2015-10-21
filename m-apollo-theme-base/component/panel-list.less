@@ -1,0 +1,45 @@
+.panel-list {
+  > li {
+    padding: 0.8em;
+    position: relative;
+    background-color: @white;
+    margin-bottom: 0.625em;
+    border-bottom:1px solid @gray-d7;
+
+    > div {
+      margin-bottom: 0.5em;
+
+      span {
+        padding-right: 1em;
+        color: @gray-bb;
+      }
+
+      b {
+        font-weight: normal;
+        color: @black;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .edit-btn {
+      display: block;
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      color: @blue-txt;
+      padding: 0.5em;
+    }
+  }
+
+  > li.tapped {
+      .list-tapped;
+  }
+}
+.empty-list {
+  padding: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  color: @gray-87;
+}

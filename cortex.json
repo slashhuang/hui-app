@@ -1,0 +1,38 @@
+{
+  "name": "unit-m-hui",
+  "version": "1.7.7",
+  "description": "The coolest cortex module.",
+  "repository": "git://code.dianpingoa.com/f2e/unit-m-hui.git",
+  "keywords": [
+    "huihui"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Mengzhe Wang",
+    "email": "mengzhe.wang@dianping.com"
+  },
+  "bugs": {
+    "url": "http://code.dianpingoa.com/f2e/unit-m-hui/issues"
+  },
+  "homepage": "http://code.dianpingoa.com/f2e/unit-m-hui",
+  "entries": "entries/**/*.js",
+  "directories": {
+    "src": "pages"
+  },
+  "dependencies": {
+    "efte": "^1.0.0",
+    "ejs": "^1.0.0",
+    "zepto-fix-issue": "^1.1.5",
+    "underscore": "^1.5.3",
+    "nut-hui": "^1.1.1",
+    "moment": "^2.7.0",
+    "hui-apollo-util": "^1.1.0",
+    "hui-neo": "1.1.2",
+    "rivets": "0.7.3",
+    "uniq-keygen": "^1.0.1",
+    "es5-shim": "^4.0.3"
+  },
+  "scripts": {
+    "prebuild": "./node_modules/.bin/gulp"
+  }
+}

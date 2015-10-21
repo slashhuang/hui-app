@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-hans">
+    <meta charset="UTF-8">
+    <title>送券优惠</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}" />
+</head>
+<body>
+<div id="container" class="neo">
+    <div rv-each-coupon="model.couponOffers">
+<!--         <div class="section">
+            <div class="control required">
+                <div class="title">优惠标题</div>
+                <div type="input">满{coupon.ticketIssueThreshold}送{coupon.cut}</div>
+                <input type="text"
+                       class="input"
+                       rv-value="coupon.title"
+                       rv-prop-readonly="readOnly"
+                        maxlength="13"
+                        placeholder="不超过13个字"/>
+            </div>
+        </div> -->
+        <div class="section-title">送券设置</div>
+        <div class="section">
+            <div class="control-row">
+                <div class="control required">
+                    <div class="title">满</div>
+                    <input type="text"
+                           class="input"
+                           pattern="\d*"
+                           rv-prop-readonly="readOnly"
+                           rv-value="coupon.ticketIssueThreshold"/>
+                    <div class="suffix">元</div>
+                </div>
+                <div class="control required">
+                    <div class="title">赠送</div>
+                    <input type="text"
+                           class="input"
+                           pattern="\d*"
+                           rv-prop-readonly="readOnly"
+                           rv-value="coupon.cut"/>
+                    <div class="suffix">元券</div>
+                </div>
+            </div>
+            <div class="control required">
+                <div class="title">开始日期</div>
+                <div class="input" rv-datepicker="coupon.beginDate" rv-class-readonly="readOnly"></div>
+            </div>
+            <div class="control required">
+                <div class="title">结束日期</div>
+                <div class="input" rv-datepicker="coupon.endDate" rv-class-readonly="readOnly"></div>
+            </div>
+            <div class="control required">
+                <div class="title">是否自动延期30天</div>
+                <div class="select">
+                    <label>
+                        <input type="radio" value=1
+                               rv-prop-disabled="readOnly"
+                               rv-checked="coupon.autoDelay"/>
+                        <span class="item">是</span>
+                    </label>
+                    <label>
+                        <input type="radio" value=0
+                               rv-prop-disabled="readOnly"
+                               rv-checked="coupon.autoDelay"/>
+                        <span class="item">否</span>
+                    </label>
+                </div>
+            </div>
+            <div class="control">
+                <div class="title">买单送券时段</div>
+                <div class="input">全天</div>
+            </div>
+            <div class="control">
+                <div class="title">库存</div>
+                <div class="select">
+                    <label>
+                        <input type="radio" value="0"
+                               rv-prop-disabled="readOnly"
+                               rv-checked="coupon.inventoryStatus"/>
+                        <span class="item">不限量</span>
+                    </label>
+                    <label>
+                        <input type="radio" value="1"
+                               rv-prop-disabled="readOnly"
+                               rv-checked="coupon.inventoryStatus"/>
+                        <span class="item">限量</span>
+                    </label>
+                </div>
+            </div>
+            <div class="control" rv-show="coupon.inventoryStatus | eq 1">
+                <div class="title">库存量</div>
+                <input class="input" type="text"
+                       pattern="\d*"
+                       rv-prop-readonly="readOnly"
+                       rv-value="coupon.maxInventory"/>
+            </div>
+            <div class="control required" rv-neounit-shops="coupon.shops">
+                <div class="title">适用门店</div>
+                <div class="input" placeholder="请选择"></div>
+                <div class="arrow"></div>
+            </div>
+        </div>
+        <div class="section-title">用券设置</div>
+        <div class="section">
+            <div class="control-row">
+                <div class="control required">
+                    <div class="title">满</div>
+                    <input type="text"
+                           class="input"
+                           pattern="\d*"
+                           rv-prop-readonly="readOnly"
+                           rv-value="coupon.full"/>
+                    <div class="suffix">元</div>
+                </div>
+                <div class="control">
+                    <div class="title">可用</div>
+                    <div class="input">{coupon.cut}</div>
+                    <div class="suffix">元券</div>
+                </div>
+            </div>
+            <div class="control">
+                <div class="title">最高减几次</div>
+                <div class="select">
+                    <label>
+                        <input type="radio" value="0"
+                               rv-prop-disabled="readOnly"
+                               rv-checked="coupon.limitCount"/>
+                        <span class="item">不限次数</span>
+                    </label>
+                    <label>
+                        <input type="radio" value="1"
+                               rv-prop-disabled="readOnly"
+                               rv-checked="coupon.limitCount"/>
+                        <span class="item">仅限一次</span>
+                    </label>
+                </div>
+            </div>
+            <div class="control" rv-neounit-detaildesc="coupon.detailDescs">
+                <div class="title">限制条件</div>
+                <div class="input" placeholder="不填表示无限制">{coupon.detailDescs|at 0}</div>
+                <div class="arrow"></div>
+            </div>
+            <div class="control required" rv-neounit-timeperiod="coupon.newTimePeriods">
+                <div class="title">可用时段</div>
+                <div class="input" placeholder="请选择"><span rv-if="coupon.newTimePeriods|size">已设置</span></div>
+                <div class="arrow"></div>
+            </div>
+            <div class="control" rv-neounit-dateexcept="coupon.dateExcept">
+                <div class="title">不可用日期</div>
+                <div class="input"></div>
+                <div class="arrow"></div>
+            </div>
+            <div class="control">
+                <div class="title">券有效期</div>
+                <div class="input">{coupon.ticketValidPeriod}天</div>
+            </div>
+        </div>
+    </div>
+</div>
+{{{facade 'unit-m-hui/entries/scheme-coupon-2'}}}
+</body>
+</html>

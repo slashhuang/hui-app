@@ -1,0 +1,63 @@
+/** default list view **/
+.list {
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1em;
+  background-color: @white;
+  border-top: 1px solid @gray-d7;
+  border-bottom: 1px solid @gray-d7;
+  >li {
+    position: relative;
+    padding-left: 0.5em;
+    >a, >span {
+      display: block;
+      padding: 1em 1.8em 1em 0;
+      color: @black-73;
+    }
+    border-bottom: 1px solid @gray-e1;
+  }
+
+  >li.tapped {
+    .list-tapped;
+  }
+
+  >li:last-child {
+    border-bottom: none;
+  }
+  >li:after {
+    position: absolute;
+    display: block;
+    right: 0.8em;
+    top: 50%;
+    content: ' ';
+    width: 10px;
+    height: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: -6px;
+    border-right: 3px solid @gray-bb;
+    border-top: 3px solid @gray-bb;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    overflow: hidden;
+  }
+  
+  >li.no-icon-next:after,
+  >li.disabled:after 
+  {
+    display: none;
+  }
+
+  >li.no-icon-next,
+  >li.disabled
+  {
+    >a, >span {
+      padding-right: 0.8em;
+    }
+  }
+}
+.empty-list {
+  padding: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  color: @gray-87;
+}

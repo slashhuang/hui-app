@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-hans">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/neo-only.css'}}}" />
+</head>
+<body>
+<div id="container" class="neo">
+    <div class="section-desc warning" rv-if="billList|size">
+        注意：保底单一经绑定不可更改，请确认
+    </div>
+    <section class="section">
+        <div class="control-group js-bill-item" rv-each-bill="billList" rv-on-click="selectBill">
+            <div class="control">
+                <div class="input">
+                    保底单号：{bill.guaranteeBillId}
+                </div>
+                <label class="checkbox">
+                    <input name="guaranteeBillId" type="checkbox" rv-checked="currentId | eq bill.useQuotaApplyId">
+                    <i></i>
+                </label>
+            </div>
+            <div class="control tiny">
+                <div class="title">申请人：{bill.salesManName}</div>
+            </div>
+            <div class="control tiny">
+                <div class="title">保底总金额：{bill.totalAmount}</div>
+            </div>
+            <div class="control tiny">
+                <div class="title">未回款金额：{bill.remainingAmount}</div>
+            </div>
+        </div>
+    </section>
+    <div class="section-desc" rv-hide="billList|size">
+        不存在欠款的保底单，无法申请绑定<br/>
+        请检查保底申请是否正在审批
+    </div>
+</div>
+{{{facade 'unit-m-hui/entries/select-guarantee-bill'}}}
+</body>
+</html>

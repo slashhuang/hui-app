@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}" />
+</head>
+<body>
+<ol class="list radio-list"></ol>
+<script class="template hide" type="text/template">
+    <li class="no-icon-next" data-value="<%= accountID %>">
+        <div class="account-name"><strong><%= bankAccountName %></strong></div>
+        <div class="bank-name"><%= bankName %> <%= bankBranch %></div>
+        <div class="account-no"><%= bankAccountNumber %></div>
+        <div class="radio">
+            <input type="radio"/>
+            <label><i></i></label>
+        </div>
+    </li>
+</script>
+{{{facade 'unit-m-hui/entries/select-bankcard'}}}
+</body>
+</html>

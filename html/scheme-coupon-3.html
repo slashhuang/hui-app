@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-hans">
+    <meta charset="UTF-8">
+    <title>送券优惠</title>
+    <meta name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="{{{static '../pages/css/index.css'}}}"/>
+</head>
+<body>
+<div id="container" class="neo">
+    <div class="js-repeat-template" rv-each-coupon="model.couponOffers">
+        <div class="sc-control-row">
+            <!--定额类型-->
+            <div class="control required releaseFlex">
+                <h1 class="title">定额类型</h1>
+                <form class="selectType">
+                    <label>
+                        <input type="radio" name="couponType" value="buffet">
+                        <b></b>
+                        自助餐
+                    </label>
+                    <label>
+                    <input type="radio" value="scenery" name="couponType" >
+
+                        <b></b>
+                        景点门票
+                    </label>
+                </form>
+            </div>
+            <!--定额价格表-->
+            <div class="control required">
+                <div class="sc-price-list" style="float:left">
+                    <div class="title" style="float: left">原价</div>
+                    <div class="sc-price-input" style="float:left">￥<input type="tel" rv-value="coupon.retailPrice" />/{coupon.unit}</div>
+                </div>
+                <div class="sc-price-list">
+                    <div class="sc-price-input sc-price-input-last-child" style="float:right">￥<input type="tel"  rv-value="coupon.salePrice" />/{coupon.unit}</div>
+                    <div class="title title-last-child" style="float:right">售价</div>
+                </div>
+            </div>
+        </div>
+        <!--适用门店，优惠时段，优惠有效期-->
+        <div class="sc-control-row">
+            <div class="control required" rv-neounit-shops="coupon.shops">
+                <div class="title">优惠适用门店</div>
+                <div class="input" placeholder="请设置"></div>
+                <div class="arrow"></div>
+            </div>
+            <div class="control required" rv-neounit-timeperiod="coupon.newTimePeriods">
+                <div class="title">优惠时段</div>
+                <div class="input" placeholder="请设置" rv-if="coupon.newTimePeriods|size"></div>
+                <div class="arrow"></div>
+            </div>
+            <div class="control required" rv-neounit-dateexcept="coupon.dateExcept">
+                <div class="title">优惠有效期</div>
+                <div class="input" placeholder="请设置" rv-if="coupon.newTimePeriods|size"></div>
+                <div class="arrow"></div>
+            </div>
+        </div>
+        <!--存放后端模板数据-->
+        <div class="js-template-container">
+        </div>
+        <!--删除优惠按钮-->
+        <div class="sc-control-row">
+            <div class="control-line js-delete-coupon">
+                删除本组优惠
+            </div>
+        </div>
+    </div>
+</div>
+<!--增加优惠按钮-->
+<div class="sc-control-row">
+    <div class="control-line aCenter t2 js-add-coupon">
+        加一组优惠
+    </div>
+</div>
+{{{facade 'unit-m-hui/entries/scheme-coupon-3'}}}
+</body>
+</html>

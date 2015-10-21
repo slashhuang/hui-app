@@ -1,0 +1,95 @@
+.filter {
+  position: relative;
+  display: flex;
+  display: -webkit-flexbox;
+  display: -webkit-box;
+  background-color: @white;
+  border-bottom: 1px solid @gray-c8;
+  z-index: 101;
+
+  > li {
+    flex: 1;
+    -webkit-flex: 1;
+    -webkit-box-flex: 1;
+    border-right: 1px solid @gray-c8;
+
+    > a {
+      position: relative;
+      display: block;
+      padding: 0.8em 0;
+      color: @gray-87;
+      text-align: center;
+    }
+
+    > a:after {
+      content: ' ';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-left: 2px solid @gray-c8;
+      border-top: 2px solid @gray-c8;
+      background-color: @white;
+      margin-left: 0.5em;
+      vertical-align: middle;
+      -webkit-transform: rotate(-135deg);
+      transform: rotate(-135deg);
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
+    }
+
+    > .option-list {
+      display: none;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      background-color: @white;
+      padding-bottom: 2em;
+      margin-top: 1px;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      z-index: 100;
+
+      li {
+        color: @black-32;
+        margin-left: 0.625em;
+        border-bottom: 1px solid @gray-e3;
+        padding-top: 1em;
+        padding-bottom: 1em;
+      }
+
+      li.checked {
+        color: @blue-txt;
+        border-bottom: 1px solid @blue-txt;
+      }
+    }
+
+    &.open .option-list {
+      display: block;
+    }
+
+    &.open a:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: -9px;
+      margin-left: -6px;
+      width: 12px;
+      height: 12px;
+      border-left: 1px solid @gray-c8;
+      border-top: 1px solid @gray-c8;
+      background-color: @white;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    &.open > a:after {
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+
+  > li:last-child {
+    border-right: none;
+  }
+}
