@@ -91,7 +91,7 @@ var self = module.exports = {
         var _self = this;
         self.models =[];
         efte.action.get(function(query) {
-            //alert(JSON.stringify(query));
+            alert(JSON.stringify(query));
             self.topic = query.topic;
             efte.setTitle(query.title || '时间区间');
             self.timePeriods = self.genShowData(query.data);

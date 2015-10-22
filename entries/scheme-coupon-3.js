@@ -24,7 +24,7 @@ var defaultSceneryCoupon = function () {
     return {
         "type": 6,
         "title": "",
-        "unit":"张",
+        "unit":"份",
         "beginDate": _now,
         "endDate": _now,
         "timePeriods": null,
@@ -51,10 +51,9 @@ var defaultSceneryCoupon = function () {
 
         },
         "businessAttribute": {
-            "fit_people": "",
-            "dinner_time_limit": "",
-            "detail_description": "",
-            "coupon_des": ""
+            "ticket_type": "",
+            "fit_people_desc": "",
+            "other_rules": "",
         }
     }
 };
@@ -129,7 +128,6 @@ var self = module.exports = {
          */
         this.view = rivets.bind($('#container').get(0), this.rvModel);
         efte.action.get(function (query) {
-            console.log(JSON.stringify(query));
             self.requestData(query);
             self.branchList = query.branchList;//门店信息
             //if(query.readOnly){@TODO 之后要改过来
@@ -231,8 +229,8 @@ var self = module.exports = {
         var  _templateDom;//存储模板根据不同的viewType渲染出来的dom模板
         var  _templateData = couponOffer.template.attributes;//获取属性数组(渲染页面)
         var  _first = isFirst;//新增时候设置默认勾选属性
-        //var _readOnly = false;//测试使用  @TODO 之后不要忘了改
-        var  _readOnly = self.readOnly;//设置可读性
+        var _readOnly = false;//测试使用  @TODO 之后不要忘了改
+        //var  _readOnly = self.readOnly;//设置可读性
 
         for(var j = 0, l = _templateData.length; j < l; j++){
             if(_templateData[j]['viewType']){
@@ -595,6 +593,7 @@ var self = module.exports = {
                      * 根据不同的类型执行不一样的挂载dom方式
                      */
                     if(domInfo && domInfo.typeName){//替换数据，重新渲染模板
+                        //console.log(JSON.stringify(_data));
                         /**
                          * 这里是个大坑，rivets 双向模板执行
                          * self.model.couponOffers.splice(domInfo.index,1,_newCoupon)会报typeError，
@@ -660,23 +659,35 @@ var self = module.exports = {
             unit: 'unit-m-hui',
             path: 'pages/time-period-new',
             data: function (val) {//来自path的data传输过来，执行双向绑定
+                /**
+                 * 增加quotaType字段，用于判断页面如何渲染数据
+                 * @type {number}
+                 */
+                var eleNum = Math.round(arguments['1']['_zid']/4)-1;
+                var quotaName = $($('.js-repeat-template').get(eleNum)).find('input[name="couponType"]:checked').val();
+                var quotaNum = function(val) {
+                    switch (val) {
+                        case 'buffet':
+                            return 1;
+                            break;
+                        case 'scenery':
+                            return 2;
+                            break;
+                        default :
+                            return 1;
+                    }
+                }(quotaName);
                 return {
                     title: '优惠时段',
                     readOnly: self.readOnly,
-                    data: val || []
+                    data: val || [],
+                    quotaType:quotaNum
                 }
             },
             value: function (val, el) {//来自rivets的数据
-                //alert('测试value字段里面的json'+JSON.stringify(val));  //@ TODO 待会删掉
                 if (!val) return val;
-                //var _index = $(".js-repeat-template").index($(el).parents(".js-repeat-template"));
-                //alert($(".js-repeat-template").length);
-                //alert(JSON.stringify(val));
-                //if(val.newTimePeriods){
-                //    $(el).find('.input').text(self.transfromDay(val.newTimePeriods[0]));
-                //}else{
                     $(el).find('.input').text(self.transfromDay(val[0]));
-                //}
+                //alert($(el).parents('.js-repeat-template').find('input[name="couponType"]').val());
                 return val;
             }
         });
@@ -771,7 +782,7 @@ var self = module.exports = {
                 return;
             }
             toast.show('保存中', true);
-            console.log(JSON.stringify(couponOffers));
+            //console.log(JSON.stringify(couponOffers));
             ajax({
                 url: 'schemeController/validate_couponOffer',
                 data: couponOffers,
