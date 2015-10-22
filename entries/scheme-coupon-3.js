@@ -129,7 +129,7 @@ var self = module.exports = {
          */
         this.view = rivets.bind($('#container').get(0), this.rvModel);
         efte.action.get(function (query) {
-            //console.log(JSON.stringify(query));
+            console.log(JSON.stringify(query));
             self.requestData(query);
             self.branchList = query.branchList;//门店信息
             //if(query.readOnly){@TODO 之后要改过来
@@ -155,7 +155,7 @@ var self = module.exports = {
         /**
          * 如果页面没有数据，则add模板，有数据则删选数据进行渲染
          */
-        if(_dataMsg.couponOffers.length === 0){
+        if(_dataMsg.couponOffers.length == 0){
             self.addCouponModel();
         }
         else{
@@ -596,12 +596,11 @@ var self = module.exports = {
                      */
                     if(domInfo && domInfo.typeName){//替换数据，重新渲染模板
                         /**
-                         * 这里是个大坑，rivets 双向模板执行[我真是好人啊]
+                         * 这里是个大坑，rivets 双向模板执行
                          * self.model.couponOffers.splice(domInfo.index,1,_newCoupon)会报typeError，
-                         * 分为两步走，先把数组数据剥离再添加
+                         * 查阅源码debug文档后，将版本号升级至0.8以上，解决问题
                          */
-                        self.model.couponOffers.splice(domInfo.index,1);
-                        self.model.couponOffers.splice(domInfo.index,0,_newCoupon);
+                        self.model.couponOffers.splice(domInfo.index,1,_newCoupon);
                         //template-container不属于rivets管辖的数据范围，执行手动删除
                         $($(".js-template-container").get(domInfo.index)).empty();
                         self.renderTemplate(_newCoupon, domInfo.index,true);
@@ -783,8 +782,7 @@ var self = module.exports = {
                 },
                 error: function (message) {
                     toast.hide();
-                    alert('出错了')
-                    //alert(message.message);
+                    alert(message.message);
                 }
             });
         });
